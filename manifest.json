@@ -1,0 +1,9 @@
+{
+  "id": "desmos-live",
+  "name": "Desmos Live",
+  "version": "1.0.0",
+  "minAppVersion": "1.7.2",
+  "description": "Embed live interactive Desmos graphs using desmos-live code blocks.",
+  "author": "Clinton Nguyen",
+  "isDesktopOnly": true
+}
