@@ -139,11 +139,24 @@ function registerDesmosRenderer(plugin) {
 
 class DesmosLivePlugin extends obsidian.Plugin {
   async onload() {
-    const vendorDir = this.manifest.dir + '/vendor';
+	  
+    const pluginFolder = this.manifest.dir;
+
+    // Check if the file is already downloaded
+    if (!(await this.app.vault.adapter.exists(pluginFolder + `/desmos.js`))) {
+        const response = await requestUrl({ url: 'https://raw.githubusercontent.com/Notnilc-N/obsidian-desmos-live/refs/heads/master/vendor/desmos.js' });
+        await this.app.vault.adapter.write(pluginFolder + `/desmos.js`, response.text);
+    }
+	
+	if (!(await this.app.vault.adapter.exists(pluginFolder + `/desmos.css`))) {
+        const response = await requestUrl({ url: 'https://raw.githubusercontent.com/Notnilc-N/obsidian-desmos-live/refs/heads/master/vendor/desmos.css' });
+        await this.app.vault.adapter.write(pluginFolder + `/desmos.css`, response.text);
+    }
+	
     this.settings = Object.assign(
       {
-        desmosJsPath: vendorDir + '/desmos.js',
-        desmosCssPath: vendorDir + '/desmos.css',
+        desmosJsPath: pluginFolder + '/desmos.js',
+        desmosCssPath: pluginFolder + '/desmos.css',
         defaultHeight: DEFAULT_HEIGHT,
       },
       (await this.loadData()) ?? {},
@@ -158,3 +171,6 @@ class DesmosLivePlugin extends obsidian.Plugin {
 }
 
 module.exports = DesmosLivePlugin;
+
+/* nosourcemap */
+/* nosourcemap */
