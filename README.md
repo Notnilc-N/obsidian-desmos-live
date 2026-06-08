@@ -1,7 +1,6 @@
 made with claude.
-you need to download a html copy of desmos (open desmos, right click anywhere, save as) and then go to the plugin settings and point the desmoJsPath and the desmosCssPath to the js.download file and that .css file that gets downloaded when you download the html.
 
-to use it, use code blocks with the desmos-live modifier. E.g.
+to use it, go to desmos, press f12 or ctrl+shift+i to open inspector, click the console tab up the top, then type Calc.getState(), right click output, copy as object, then past into a code blocks that uses the desmos-live modifier. E.g.
 ```desmos-live
 {
     "version": 11,
