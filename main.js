@@ -4,13 +4,7 @@ var obsidian = require('obsidian');
 
 // ── Settings ─────────────────────────────────────────────────────────────────
 
-const DEFAULT_SETTINGS = {
-  desmosJsPath:
-    'attachments/euler _ Desmos_files/shared_calculator_desktop-a1b6c891a1bfb28f9a3068c97d1877e05a83c51d.js.download',
-  desmosCssPath:
-    'attachments/euler _ Desmos_files/shared_calculator_desktop-f80f675e1d3831459b85ce50a70fe73c3e91366a.css',
-  defaultHeight: 400,
-};
+const DEFAULT_HEIGHT = 400;
 
 class DesmosLiveSettingTab extends obsidian.PluginSettingTab {
   constructor(app, plugin) {
@@ -22,32 +16,32 @@ class DesmosLiveSettingTab extends obsidian.PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    new obsidian.Setting(containerEl)
-      .setName('Desmos JS path')
-      .setDesc('Path to the Desmos JS bundle, relative to vault root.')
-      .addText(text =>
-        text
-          .setPlaceholder('attachments/desmos/desmos.js.download')
-          .setValue(this.plugin.settings.desmosJsPath)
-          .onChange(async value => {
-            this.plugin.settings.desmosJsPath = value;
-            await this.plugin.saveSettings();
-          }),
-      );
+    // new obsidian.Setting(containerEl)
+    //   .setName('Desmos JS path')
+    //   .setDesc('Path to the Desmos JS bundle, relative to vault root.')
+    //   .addText(text =>
+    //     text
+    //       .setPlaceholder('attachments/desmos/desmos.js.download')
+    //       .setValue(this.plugin.settings.desmosJsPath)
+    //       .onChange(async value => {
+    //         this.plugin.settings.desmosJsPath = value;
+    //         await this.plugin.saveSettings();
+    //       }),
+    //   );
 
-    new obsidian.Setting(containerEl)
-      .setName('Desmos CSS path')
-      .setDesc('Path to the Desmos CSS file, relative to vault root.')
-      .addText(text =>
-        text
-          .setPlaceholder('attachments/desmos/desmos.css')
-          .setValue(this.plugin.settings.desmosCssPath)
-          .onChange(async value => {
-            this.plugin.settings.desmosCssPath = value;
-            this.plugin._desmosCssCache = null; // invalidate cache on path change
-            await this.plugin.saveSettings();
-          }),
-      );
+    //new obsidian.Setting(containerEl)
+    //  .setName('Desmos CSS path')
+    //  .setDesc('Path to the Desmos CSS file, relative to vault root.')
+    //  .addText(text =>
+    //    text
+    //      .setPlaceholder('attachments/desmos/desmos.css')
+    //      .setValue(this.plugin.settings.desmosCssPath)
+    //      .onChange(async value => {
+    //        this.plugin.settings.desmosCssPath = value;
+    //        this.plugin._desmosCssCache = null; // invalidate cache on path change
+    //        await this.plugin.saveSettings();
+    //      }),
+    //  );
 
     new obsidian.Setting(containerEl)
       .setName('Default height (px)')
@@ -145,9 +139,13 @@ function registerDesmosRenderer(plugin) {
 
 class DesmosLivePlugin extends obsidian.Plugin {
   async onload() {
+    const vendorDir = this.manifest.dir + '/vendor';
     this.settings = Object.assign(
-      {},
-      DEFAULT_SETTINGS,
+      {
+        desmosJsPath: vendorDir + '/desmos.js',
+        desmosCssPath: vendorDir + '/desmos.css',
+        defaultHeight: DEFAULT_HEIGHT,
+      },
       (await this.loadData()) ?? {},
     );
     this.addSettingTab(new DesmosLiveSettingTab(this.app, this));
