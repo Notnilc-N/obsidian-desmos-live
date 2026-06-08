@@ -1,6 +1,6 @@
 made with claude.
 
-to use it, go to desmos, press f12 or ctrl+shift+i to open inspector, click the console tab up the top, then type Calc.getState(), right click output, copy as object, then past into a code blocks that uses the desmos-live modifier. E.g.
+to use it, go to desmos, press f12 or ctrl+shift+i to open inspector, click the console tab up the top, then type Calc.getState(), right click output, copy as object, then past into a code block that uses the desmos-live modifier. E.g.
 ```desmos-live
 {
     "version": 11,
