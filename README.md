@@ -1,7 +1,9 @@
 made with claude.
 
 to use it, go to desmos, press f12 or ctrl+shift+i to open inspector, click the console tab up the top, then type Calc.getState(), right click output, copy as object, then past into a code block that uses the desmos-live modifier. E.g.
-```desmos-live
+
+"```desmos-live"
+```
 {
     "version": 11,
     "randomSeed": "2f487e7cd41475677bd0a2bf608a0649",
@@ -88,5 +90,6 @@ to use it, go to desmos, press f12 or ctrl+shift+i to open inspector, click the 
     "doNotMigrateMovablePointStyle": true
 }
 ```
+"```"
 
 You can change the height in the plugin settings.
